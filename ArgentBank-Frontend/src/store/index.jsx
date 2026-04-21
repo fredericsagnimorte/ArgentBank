@@ -1,7 +1,7 @@
 import { createSlice, configureStore } from '@reduxjs/toolkit';
 
-const storedataSlice = createSlice({
-    name: storedata,
+const userSlice = createSlice({
+    name: "user",
     initialState: {
         bearer: ""
     },
@@ -14,3 +14,12 @@ const storedataSlice = createSlice({
         }
     }
 })
+
+const store = configureStore({
+  reducer: {
+    user: userSlice.reducer
+  }
+});
+
+export const { storeBearer, resetBearer } = userSlice.actions;
+export default store;

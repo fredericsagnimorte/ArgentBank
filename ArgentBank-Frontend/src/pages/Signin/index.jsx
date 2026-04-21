@@ -1,4 +1,4 @@
-import DivInput from "../elements/DivInput"
+import DivInput from "../../elements/DivInput"
 import { useState } from "react";
 
 

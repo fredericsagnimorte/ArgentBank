@@ -1,4 +1,4 @@
-import Feature_item from '../elements/Feature_Item'
+import Feature_item from '../../elements/Feature_Item'
 
 function Home() {
   return (

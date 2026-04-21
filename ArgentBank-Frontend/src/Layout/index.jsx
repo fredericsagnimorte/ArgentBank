@@ -1,9 +1,9 @@
-import Home from '../Home';
-import Footer from '../Footer';
-import Nav from '../Nav';
-import Error_404 from '../Error_404';
-import Signin from '../Signin';
-import User from '../User';
+import Home from '../pages/Home';
+import Footer from '../elements/Footer';
+import Nav from '../elements/Nav';
+import Error_404 from '../pages/Error_404';
+import Signin from '../pages/Signin';
+import User from '../pages/User';
 
 import {
   Routes,

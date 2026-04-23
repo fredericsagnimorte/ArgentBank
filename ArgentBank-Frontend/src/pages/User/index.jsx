@@ -1,7 +1,7 @@
 import Account from '../../elements/Account';
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { setUserFirstName, setUserLastName } from "../../store";
+import { setUserFirstName, setUserLastName, setUserName } from "../../store";
 import { useNavigate } from 'react-router-dom';
 import DivInput from "../../elements/DivInput"
 
@@ -14,9 +14,9 @@ function User() {
     const bearer = useSelector((state) => state.user.bearer);
     const userFirstName = useSelector((state) => state.user.userFirstName);
     const userLastName = useSelector((state) => state.user.userLastName);
+    const userName = useSelector((state) => state.user.userName);
 
-    const [firstName, setFirstName] = useState(userFirstName);
-    const [lastName, setLastName] = useState(userLastName);
+    const [name, setName] = useState(userName);
     const [isModifyingName, setIsModifyingName] = useState(false);
 
     useEffect(() => {
@@ -31,8 +31,13 @@ function User() {
         })
             .then((response) => response.json())
             .then((data) => {
+
                 dispatch(setUserFirstName(data.body.firstName));
                 dispatch(setUserLastName(data.body.lastName));
+
+                if (data.body.userName) {
+                    dispatch(setUserName(data.body.userName));
+                }
             })
             .catch((error) => {
                 console.error("Error fetching profile:", error);
@@ -40,9 +45,33 @@ function User() {
 
     }, [bearer, dispatch]);
 
+
+    useEffect(() => {
+        setName(userName || "");
+    }, [userName]);
+
     function handleSave() {
-        console.log("changement du nom");
-        setIsModifyingName(false);
+
+        fetch("http://localhost:3001/api/v1/user/profile", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${bearer}`
+            },
+            body: JSON.stringify({
+                userName: name.trim() // peut être ""
+            })
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                dispatch(setUserName(data.body.userName));
+            })
+            .catch((error) => {
+                console.error("Error updating profile:", error);
+            });
+
+        setIsModifyingName(false)
+
     }
 
     return (
@@ -55,18 +84,13 @@ function User() {
                                 <div className="inputs-changing-name">
                                     <input
                                         type="text"
-                                        id="userFirstName"
-                                        value={userFirstName} onChange={(e) => { dispatch(setUserFirstName(e.target.value)) }}
-                                    />
-                                    <input
-                                        type="text"
-                                        id="userLastName"
-                                        value={userLastName}
-                                        onChange={(e) => { dispatch(setUserLastName(e.target.value)) }}
+                                        value={name}
+                                        onChange={(e) => setName(e.target.value)}
+                                        placeholder={userName ? userName : "username"}
                                     />
                                 </div>
                                 <div className="buttons-changing-name">
-                                    <button className="Save-button" onClick={handleSave}>Save</button>
+                                    <button className="save-button" onClick={handleSave}>Save</button>
                                     <button className="cancel-button" onClick={() => setIsModifyingName(false)} >Cancel</button>
                                 </div>
                             </>
@@ -74,7 +98,7 @@ function User() {
                         :
                         (
                             <>
-                                <h1>Welcome back<br />{userFirstName + " " + userLastName}!</h1>
+                                <h1>Welcome back<br />{userName ? userName : (userFirstName + " " + userLastName)}!</h1>
                                 <button className="edit-button" onClick={() => setIsModifyingName(true)} >Edit Name</button>
                             </>
                         )

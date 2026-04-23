@@ -284,7 +284,9 @@ body {
   flex: 1;
 }
 
-.edit-button {
+.edit-button,
+.cancel-button,
+.save-button {
   border-color: #00bc77;
   background-color: #00bc77;
   color: #fff;

@@ -33,7 +33,7 @@ function Nav() {
 
                 {isUser &&
                     <>
-                        <i class="fa-solid fa-user"></i>
+                        <i className="fa-solid fa-user"></i>
                         {userFirstName + " " + userLastName}
                         <a className="main-nav-item" href="/">
                             <i className="fa-solid fa-arrow-right-from-bracket"></i>

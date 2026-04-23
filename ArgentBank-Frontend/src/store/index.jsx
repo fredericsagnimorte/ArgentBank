@@ -5,7 +5,8 @@ const userSlice = createSlice({
     initialState: {
         bearer: "",
         userFirstName: "",
-        userLastName: ""
+        userLastName: "",
+        userName: ""
     },
     reducers: {
         setBearer: (state, action) => {
@@ -25,6 +26,11 @@ const userSlice = createSlice({
         },
         resetUserLastName: state => {
             state.userLastName = "";
+        }, setUserName: (state, action) => {
+            state.userName = action.payload;
+        },
+        resetUserName: state => {
+            state.userName = "";
         },
     }
 })
@@ -35,5 +41,5 @@ const store = configureStore({
     }
 });
 
-export const { setBearer, resetBearer, setUserFirstName, resetUserFirstName, setUserLastName, resetUserLastName } = userSlice.actions;
+export const { setBearer, resetBearer, setUserFirstName, resetUserFirstName, setUserLastName, resetUserLastName, setUserName, resetUserName } = userSlice.actions;
 export default store;

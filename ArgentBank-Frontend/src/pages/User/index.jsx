@@ -20,7 +20,10 @@ function User() {
     const [isModifyingName, setIsModifyingName] = useState(false);
 
     useEffect(() => {
-        if (!bearer) { navigate("/sign-in.html"); return };
+        if (!bearer) {
+            navigate("/");
+            return;
+        }
 
         fetch("http://localhost:3001/api/v1/user/profile", {
             method: "GET",
@@ -43,7 +46,7 @@ function User() {
                 console.error("Error fetching profile:", error);
             });
 
-    }, [bearer, dispatch]);
+    }, [bearer, dispatch, navigate]);
 
 
     useEffect(() => {

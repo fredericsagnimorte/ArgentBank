@@ -1,15 +1,27 @@
 import { useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { resetBearer, resetUserFirstName, resetUserLastName, resetUserName } from "../../store";
+
 
 
 function Nav() {
     const location = useLocation();
+    const dispatch = useDispatch();
+
     const isHome = location.pathname === "/";
     const isSignIn = location.pathname === "/sign-in.html";
     const isUser = location.pathname === "/user";
 
     const userFirstName = useSelector((state) => state.user.userFirstName);
     const userLastName = useSelector((state) => state.user.userLastName);
+
+
+    function handleLogout() {
+        dispatch(resetBearer());
+        dispatch(resetUserFirstName());
+        dispatch(resetUserLastName());
+        dispatch(resetUserName());
+    }
 
     return (
         <nav className="main-nav">
@@ -35,10 +47,10 @@ function Nav() {
                     <>
                         <i className="fa-solid fa-user"></i>
                         {userFirstName + " " + userLastName}
-                        <a className="main-nav-item" href="/">
+                        <button className="main-nav-item" onClick={handleLogout}>
                             <i className="fa-solid fa-arrow-right-from-bracket"></i>
                             Log Out
-                        </a>
+                        </button>
                     </>
                 }
 

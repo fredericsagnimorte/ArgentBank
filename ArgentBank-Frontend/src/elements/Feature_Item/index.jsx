@@ -2,9 +2,9 @@ import PropTypes from "prop-types";
 
 function Feature_item({ imgsrc, title, content }) {
     return (
-        <div class="feature-item">
-            <img src={imgsrc} alt="Chat Icon" class="feature-icon" />
-            <h3 class="feature-item-title">{title}</h3>
+        <div className="feature-item">
+            <img src={imgsrc} alt="Chat Icon" className="feature-icon" />
+            <h3 className="feature-item-title">{title}</h3>
             <p>
                 {content}
             </p>

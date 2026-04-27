@@ -14,6 +14,7 @@ function Nav() {
 
     const userFirstName = useSelector((state) => state.user.userFirstName);
     const userLastName = useSelector((state) => state.user.userLastName);
+    const userName = useSelector((state)=> state.user.userName);
 
 
     function handleLogout() {
@@ -46,7 +47,7 @@ function Nav() {
                 {isUser &&
                     <>
                         <i className="fa-solid fa-user"></i>
-                        {userFirstName + " " + userLastName}
+                        {userName ? userName : userFirstName + " " + userLastName}
                         <button className="main-nav-item" onClick={handleLogout}>
                             <i className="fa-solid fa-arrow-right-from-bracket"></i>
                             Log Out

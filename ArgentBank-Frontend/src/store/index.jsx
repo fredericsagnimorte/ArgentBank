@@ -19,7 +19,7 @@ const userSlice = createSlice({
             state.userFirstName = action.payload;
         },
         resetUserFirstName: state => {
-            state.userFirsName = "";
+            state.userFirstName = "";
         },
         setUserLastName: (state, action) => {
             state.userLastName = action.payload;
